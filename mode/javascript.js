@@ -117,7 +117,7 @@ function mkJavaScript(parserConfig) {
         if (word == "async" && stream.match(/^(\s|\/\*([^*]|\*(?!\/))*?\*\/)*[\[\(\w]/, false))
           return ret("async", "keyword", word)
       }
-      return ret("variable", "variable", word)
+      return ret("variable", "typeName", word)
     }
   }
 
