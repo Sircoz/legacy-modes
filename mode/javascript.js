@@ -13,7 +13,7 @@ function mkJavaScript(parserConfig) {
     var operator = kw("operator"), atom = {type: "atom", style: "atom"};
 
     return {
-      "if": kw("if"), "stage": kw("if"), "fn": kw("if"), "builtin": kw("if"), "builtin": kw("if"),
+      "if": kw("if"), "stage": operator, "fn": kw("if"), "builtin": kw("if"), "builtin": kw("if"),
       "location": kw("if"), "group": kw("if"), "binding": kw("if"), "block": kw("if"), "struct": kw("if"),
       "while": A, "with": A, "else": B, "do": B, "try": B, "finally": B,
       "return": D, "break": D, "continue": D, "new": kw("new"), "delete": C, "void": C, "throw": C,
@@ -74,7 +74,7 @@ function mkJavaScript(parserConfig) {
         return tokenComment(stream, state);
       } else if (stream.eat("/")) {
         stream.skipToEnd();
-        return ret("comment", "comment");
+        return ret("comment", "meta");
       } else if (expressionAllowed(stream, state, 1)) {
         readRegexp(stream);
         stream.match(/^\b(([gimyus])(?![gimyus]*\2))+\b/);
