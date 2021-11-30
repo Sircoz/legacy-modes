@@ -90,11 +90,11 @@ function mkJavaScript(parserConfig) {
       stream.skipToEnd();
       return ret("meta", "meta");
     } else if (ch == "#" && stream.eatWhile(wordRE)) {
-      return ret("variable", "typeName")
+      return ret("variable", "property")
     } else if (ch == "<" && stream.match("!--") ||
                (ch == "-" && stream.match("->") && !/\S/.test(stream.string.slice(0, stream.start)))) {
       stream.skipToEnd()
-      return ret("comment", "meta")
+      return ret("comment", "comment")
     } else if (isOperatorChar.test(ch)) {
       if (ch != ">" || !state.lexical || state.lexical.type != ">") {
         if (stream.eat("=")) {
@@ -146,7 +146,7 @@ function mkJavaScript(parserConfig) {
       }
       maybeEnd = (ch == "*");
     }
-    return ret("comment", "meta");
+    return ret("comment", "comment");
   }
 
   function tokenQuasi(stream, state) {
