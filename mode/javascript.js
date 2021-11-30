@@ -8,7 +8,7 @@ function mkJavaScript(parserConfig) {
   // Tokenizer
 
   var keywords = function(){
-    function kw(type) {return {type: type, style: "literal"};}
+    function kw(type) {return {type: type, style: "keyword"};}
     var A = kw("keyword a"), B = kw("keyword b"), C = kw("keyword c"), D = kw("keyword d");
     var operator = kw("operator"), atom = {type: "atom", style: "atom"};
 
