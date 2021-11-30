@@ -8,7 +8,7 @@ function mkJavaScript(parserConfig) {
   // Tokenizer
 
   var keywords = function(){
-    function kw(type) {return {type: type, style: "literal"};}
+    function kw(type) {return {type: type, style: "keyword"};}
     var A = kw("keyword a"), B = kw("keyword b"), C = kw("keyword c"), D = kw("keyword d");
     var operator = kw("operator"), atom = {type: "atom", style: "atom"};
 
@@ -94,7 +94,7 @@ function mkJavaScript(parserConfig) {
     } else if (ch == "<" && stream.match("!--") ||
                (ch == "-" && stream.match("->") && !/\S/.test(stream.string.slice(0, stream.start)))) {
       stream.skipToEnd()
-      return ret("comment", "meta")
+      return ret("comment", "comment")
     } else if (isOperatorChar.test(ch)) {
       if (ch != ">" || !state.lexical || state.lexical.type != ">") {
         if (stream.eat("=")) {
@@ -115,7 +115,7 @@ function mkJavaScript(parserConfig) {
           return ret(kw.type, kw.style, word)
         }
         if (word == "async" && stream.match(/^(\s|\/\*([^*]|\*(?!\/))*?\*\/)*[\[\(\w]/, false))
-          return ret("async", "literal", word)
+          return ret("async", "keyword", word)
       }
       return ret("variable", "variable", word)
     }
@@ -146,7 +146,7 @@ function mkJavaScript(parserConfig) {
       }
       maybeEnd = (ch == "*");
     }
-    return ret("comment", "meta");
+    return ret("comment", "comment");
   }
 
   function tokenQuasi(stream, state) {
