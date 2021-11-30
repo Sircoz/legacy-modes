@@ -8,7 +8,7 @@ function mkJavaScript(parserConfig) {
   // Tokenizer
 
   var keywords = function(){
-    function kw(type) {return {type: type, style: "keyword"};}
+    function kw(type) {return {type: type, style: "typeName"};}
     var A = kw("keyword a"), B = kw("keyword b"), C = kw("keyword c"), D = kw("keyword d");
     var operator = kw("operator"), atom = {type: "atom", style: "atom"};
 
@@ -115,7 +115,7 @@ function mkJavaScript(parserConfig) {
           return ret(kw.type, kw.style, word)
         }
         if (word == "async" && stream.match(/^(\s|\/\*([^*]|\*(?!\/))*?\*\/)*[\[\(\w]/, false))
-          return ret("async", "keyword", word)
+          return ret("async", "typeName", word)
       }
       return ret("variable", "typeName", word)
     }
